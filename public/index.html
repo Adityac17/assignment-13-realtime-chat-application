@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Realtime Chat Engine</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- Login overlay -->
+  <div id="login-overlay" class="overlay">
+    <form id="login-form" class="login-card">
+      <h1>💬 Realtime Chat</h1>
+      <p class="subtitle">Pick a username and jump into a room.</p>
+      <label for="username-input">Username</label>
+      <input id="username-input" type="text" maxlength="32" placeholder="e.g. ada_lovelace" autocomplete="off" required />
+      <label for="avatar-input">Avatar (emoji, optional)</label>
+      <input id="avatar-input" type="text" maxlength="4" placeholder="🦊" autocomplete="off" />
+      <button type="submit">Enter Chat</button>
+      <p id="login-error" class="error" role="alert"></p>
+    </form>
+  </div>
+
+  <!-- Main app -->
+  <div id="app" class="app hidden">
+    <!-- Sidebar: rooms -->
+    <aside class="sidebar">
+      <div class="brand">💬 Chat</div>
+      <div class="section-title">Rooms</div>
+      <ul id="room-list" class="room-list"></ul>
+      <div class="me" id="me-card">
+        <span id="me-avatar" class="avatar"></span>
+        <span id="me-name" class="me-name"></span>
+      </div>
+    </aside>
+
+    <!-- Main chat area -->
+    <main class="chat">
+      <header class="chat-header">
+        <span id="current-room" class="current-room">#general</span>
+        <span id="connection-status" class="conn-status">connecting…</span>
+      </header>
+
+      <div id="messages" class="messages" aria-live="polite"></div>
+
+      <div id="typing-indicator" class="typing-indicator"></div>
+
+      <form id="message-form" class="message-form">
+        <input id="message-input" type="text" maxlength="2000" placeholder="Message…" autocomplete="off" />
+        <button type="submit">Send</button>
+      </form>
+    </main>
+
+    <!-- Right panel: online users -->
+    <aside class="userpanel">
+      <div class="section-title">Online in <span id="userpanel-room">#general</span></div>
+      <ul id="user-list" class="user-list"></ul>
+      <p class="hint">Click a user to send a private message.</p>
+    </aside>
+  </div>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
